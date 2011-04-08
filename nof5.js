@@ -6,28 +6,23 @@
 		port = 54321,
 		io = require('socket.io'),
 		ioListener,
-		targets = [];
+		server;
 
-	var tempTarget = process.argv[2];
-
-	var server = http.createServer();
+	server = http.createServer();
 	server.listen(port);
 	ioListener = io.listen(server);
 
 	ioListener.on('connection', function(client) {
-		console.log("connected");
+		// TODO send and display message about estabilished connection
 	});
 
 	exec('find `pwd` -name *.css', function(err, stdout) {
 		if (err) throw "Error finding CSS files.";
 		stdout = stdout.trim();
 		if (stdout) {
-			targets = stdout.split("\n")
+			stdout.split("\n").forEach(spawnWatcher);
 		}
-		targets.forEach( function(el) {
-			spawnWatcher(el);
-		})
-	})
+	});
 
 	function spawnWatcher(target) {
 		console.log("watching " + target);
@@ -37,7 +32,6 @@
 				ioListener.broadcast({changed: target});
 			}
 		})
-	}
+	};
 
-
-}());
+}(this));
