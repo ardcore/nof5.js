@@ -1,19 +1,19 @@
 function loadScript(url, callback) {
-	var head = document.getElementsByTagName("head")[0];
-	var script = document.createElement("script");
-	script.src = url;
-	var done = false;
-	script.onload = script.onreadystatechange = function() {
-		if (!done && ( !this.readyState
-			|| this.readyState == "loaded"
-			|| this.readyState == "complete")) {
-			done = true;
-			callback();
-			script.onload = script.onreadystatechange = null;
-			head.removeChild(script);
-		}
-	};
-	head.appendChild(script);
+  var head = document.getElementsByTagName("head")[0];
+  var script = document.createElement("script");
+  script.src = url;
+  var done = false;
+  script.onload = script.onreadystatechange = function() {
+    if (!done && ( !this.readyState
+      || this.readyState == "loaded"
+      || this.readyState == "complete")) {
+      done = true;
+      callback();
+      script.onload = script.onreadystatechange = null;
+      head.removeChild(script);
+    }
+  };
+  head.appendChild(script);
 };
 
 function reCss() {
@@ -29,12 +29,12 @@ function reCss() {
 };
 
 loadScript("http://cdn.socket.io/stable/socket.io.js", function() {
-	var socket = new io.Socket('localhost', { port: 54321, transports: ['websocket', 'flashsocket', 'xhr-polling', 'htmlfile'] });
-	socket.connect();
-	socket.on('message', function(msg) {
-		if (msg.changed) {
-			console.log("change in " + msg.changed);
-			reCss();
-		}
-	});
+  var socket = new io.Socket('localhost', { port: 54321, transports: ['websocket', 'flashsocket', 'xhr-polling', 'htmlfile'] });
+  socket.connect();
+  socket.on('message', function(msg) {
+    if (msg.changed) {
+      console.log("change in " + msg.changed);
+      reCss();
+    }
+  });
 });
