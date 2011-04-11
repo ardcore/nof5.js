@@ -1,0 +1,10 @@
+Install:
+1. clone this repo
+2. copy nof5.js to ~/bin (npm package coming soon)
+3. open nof5-bookbu.html in your browser, drag the bookmarklet to your bookmarks bar
+
+Usage:
+1. run nof5.js in a directory of a project you're working on
+2. click on bookmarklet in your browser
+
+It should work, but it's not ready yet.
